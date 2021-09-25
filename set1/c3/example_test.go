@@ -15,7 +15,7 @@ func Example() {
 	}
 
     var out []byte
-    for key := 0; key < 26; key ++ {
+    for key := 0; key < 256; key ++ {
         for i := 0; i < len(b); i++ {
             out = append(out, b[i]^byte(key))
         }
@@ -31,4 +31,9 @@ func hexToBytes(input string) ([]byte, error) {
 		return nil, err
 	}
 	return dst, nil
+}
+
+// bytesToHex converts a byte slice to the equivalent in hex.
+func bytesToHex(src []byte) (string) {
+	return hex.EncodeToString(src)
 }
