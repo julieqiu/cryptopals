@@ -27,14 +27,14 @@
 // 
 // Concepts you'll need to know for this challenge:
 // 
-// - Hexidecimal
-// - Binary
-// - Decimal
-// - Base64
-// - ASCII
+// Hexidecimal
+// Binary
+// Decimal
+// Base64
+// ASCII
 // 
 // 
-// Decimal (Base 10)
+// Decimal
 // 
 // Decimal is the notation we are used to seeing numbers represented in in every
 // day life — it uses 10 as the base notation. For example, when you see the
@@ -46,7 +46,7 @@
 //   = 81
 // 
 // 
-// Binary (Base 2)
+// Binary
 // 
 // Rather than using base 10, in binary, we will use base 2. So 81 looks like
 // this:
