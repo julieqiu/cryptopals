@@ -8,54 +8,38 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-	"strings"
 
 	"github.com/julieqiu/derrors"
 )
 
 func main() {
 	flag.Usage = func() {
-		fmt.Fprintf(flag.CommandLine.Output(), "usage: makedoc [dir]\n")
-		fmt.Fprintf(flag.CommandLine.Output(), "  Convert [dir]/doc.txt to [dir]/doc.go.")
+		fmt.Fprintf(flag.CommandLine.Output(), "usage: makedoc [SetID] [ChallengeID]\n")
+		fmt.Fprintf(flag.CommandLine.Output(), "  Generate set[SetID]/c[ChallengeID]/doc.go from set[SetID]/c[ChallengeID]/doc.txt.")
 		flag.PrintDefaults()
 	}
 
 	flag.Parse()
-	if flag.NArg() != 1 {
+	if flag.NArg() != 2 {
 		flag.Usage()
 		os.Exit(1)
 	}
-	dir := flag.Args()[0]
-	if err := run(dir); err != nil {
+	set := flag.Args()[0]
+	challenge := flag.Args()[1]
+	if err := run(set, challenge); err != nil {
 		log.Fatal(err)
 	}
 }
 
-func run(dir string) (err error) {
-	defer derrors.Wrap(&err, "run(%q)", dir)
-	set, challenge, err := setAndChallengeFromDir(dir)
+func run(set, challenge string) (err error) {
+	defer derrors.Wrap(&err, "run(%q, %q)", set, challenge)
+	dir := filepath.Join(fmt.Sprintf("set%s", set), fmt.Sprintf("c%s", challenge))
+	lines, err := readFileLines(filepath.Join(dir, "doc.txt"))
 	if err != nil {
 		return err
 	}
-	lines, err := readFileLines(filepath.Join(fmt.Sprintf("set%s", set), dir, "doc.txt"))
-	if err != nil {
-		return err
-	}
-	makeDoc(filepath.Join(fmt.Sprintf("set%s", set), dir, "doc.go"), set, challenge, lines)
+	makeDoc(filepath.Join(dir, "doc.go"), set, challenge, lines)
 	return nil
-}
-
-func setAndChallengeFromDir(dir string) (set string, challenge string, err error) {
-	defer derrors.Wrap(&err, "setAndChallengeFromDir(%q)", dir)
-	parts := strings.Split(dir, "s")
-	if len(parts) != 2 {
-		return "", "", fmt.Errorf("invalid directory, no set")
-	}
-	parts = strings.Split(parts[1], "c")
-	if len(parts) != 2 {
-		return "", "", fmt.Errorf("invalid directory, no challenge")
-	}
-	return parts[0], parts[1], nil
 }
 
 // readfilelines reads and returns the lines from a file.
@@ -83,7 +67,7 @@ func makeDoc(filename, set, challenge string, lines []string) (err error) {
 	content := fmt.Sprintf(`// This file is generated using cmd/makedoc. DO NOT EDIT.
 // To update, edit the doc.txt file in this directory.
 // Then run
-//     go run ./cmd/makedoc s%[1]sc%[2]s
+//     go run ./cmd/makedoc %s %s
 //
 
 `, set, challenge)
@@ -92,6 +76,6 @@ func makeDoc(filename, set, challenge string, lines []string) (err error) {
 	}
 	content += "//\n"
 	content += "//\n"
-	content += fmt.Sprintf("package s%[1]sc%[2]s", set, challenge)
+	content += fmt.Sprintf("package c%s", challenge)
 	return ioutil.WriteFile(filename, []byte(content), 0644)
 }

@@ -1,7 +1,7 @@
 // This file is generated using cmd/makedoc. DO NOT EDIT.
 // To update, edit the doc.txt file in this directory.
 // Then run
-//     go run ./cmd/makedoc s1c2
+//     go run ./cmd/makedoc 1 2
 //
 
 // Set 1 Challenge 2
@@ -68,9 +68,9 @@
 // For example, the first ones are 28 and 104, which map to:
 // 
 // 
-//   |     | 0 | 0 | 0 | 1 | 1 | 1 | 0 | 0 |
+//   | 28  | 0 | 0 | 0 | 1 | 1 | 1 | 0 | 0 |
 //   | --- | - | - | - | - | - | - | - | - |
-//   |     | 0 | 1 | 1 | 0 | 1 | 0 | 0 | 0 |
+//   | 104 | 0 | 1 | 1 | 0 | 1 | 0 | 0 | 0 |
 //   | --- | - | - | - | - | - | - | - | - |
 //   | XOR | 0 | 1 | 1 | 1 | 0 | 1 | 0 | 0 |
 // 
@@ -79,4 +79,4 @@
 // Lastly, we want to hex encode the output.
 //
 //
-package s1c2
+package c2

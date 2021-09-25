@@ -1,7 +1,7 @@
 // This file is generated using cmd/makedoc. DO NOT EDIT.
 // To update, edit the doc.txt file in this directory.
 // Then run
-//     go run ./cmd/makedoc s1c1
+//     go run ./cmd/makedoc 1 1
 //
 
 // Set 1 Challenge 1
@@ -206,4 +206,4 @@
 // - https://pkg.go.dev/encoding/base64#Encoding.Encode
 //
 //
-package s1c1
+package c1
