@@ -25,13 +25,16 @@
 // 
 // The Basics
 // 
-// Concepts you'll need to know for this challenge:
+// This challenge is all about learning different ways to represent a given number.
 // 
-// Hexidecimal
-// Binary
-// Decimal
-// Base64
-// ASCII
+// We'll the number 81 to go through the basics. Before starting the problem,
+// you'll need to understand why:
+// 
+//     81        in decimal
+//   = 1010001   in binary
+//   = 51        in hexidecimal
+//   = Q         in ASCII
+//   = UQ==      in base64
 // 
 // 
 // Decimal
@@ -73,6 +76,92 @@
 //   ----------
 //   = 81 (decimal)
 //   = 1010001 (binary)
+// 
+// 
+// Hexidecimal
+// 
+// Hexidecimal uses base 16 rather than base 10 or base 2. It represents numbers
+// 10-16 using letters.
+// 
+// https://kb.iu.edu/d/afdl shows a table of what a number looks like in decimal,
+// hexidecimal, and binary.
+// 
+// https://www.wikihow.com/Convert-Binary-to-Hexadecimal provides an explanation
+// of how to convert binary to hexidecimal.
+// 
+// 
+// To get 81 in hexidecimal:
+// 
+//     ? * 16^1 (16)
+//   + ? * 16^0 (1)
+//   ----------
+//   = 81
+// 
+// Computing the `?` gives us:
+// 
+//     5 * 16^1 (16)
+//   + 1 * 16^0 (1)
+//   ----------
+//   = 81 (decimal)
+//   = 1010001 (binary)
+//   = 51 (hex)
+// 
+// 
+// ASCII
+// 
+// From https://en.wikipedia.org/wiki/ASCII:
+// 
+//   ASCII is the American Standard Code for Information Interchange, which is a
+//   character encoding standard for electronic communication. ASCII codes represent
+//   text in computers, telecommunications equipment, and other devices. Most modern
+//   character-encoding schemes are based on ASCII, although they support many
+//   additional characters.
+// 
+// You can think of it as another representation of numbers, where characters map
+// to the table at https://www.lookuptables.com/text/ascii-table.
+// 
+// 81 in ASCII is `Q`.
+// 
+// 
+// Base64
+// 
+// From https://en.wikipedia.org/wiki/Base64:
+// 
+//   Base64 is a group of binary-to-text encoding schemes that represent binary
+//   data (more specifically, a sequence of 8-bit bytes) in an ASCII string format
+//   by translating the data into a radix-64 representation. The term Base64
+//   originates from a specific MIME content transfer encoding. Each non-final
+//   Base64 digit represents exactly 6 bits of data. Three 8-bit bytes (i.e., a
+//   total of 24 bits) can therefore be represented by four 6-bit Base64 digits.
+// 
+// As a reminder:
+// 
+// ```
+// 81 in decimal
+// = 01010001 in binary
+// = 51 in hex
+// = Q in ASCII
+// ```
+// 
+// Using the binary representation of 81, we can convert it to base64 by:
+// 
+// 1. Divide it into sextets:
+// 
+//   010100 01----  // 01010001 in sextets
+// 
+// 
+// 2. Replace missing digits with 0s.
+// 
+//   010100 010000 // 010100 01---- from above, filled with 0s
+// 
+// 
+// 3. Use the table at https://en.wikipedia.org/wiki/Base64#Base64_table to map a
+// number to its base64 representation.
+// 
+//   010100 010000 = UQ
+// 
+// 4. Lastly, base64 must ALWAYS consist of 4 characters. In our case, we have
+// `UQ`, so we pad the remaining characters with `=`, giving us `UQ==`.
 //
 //
 package main
