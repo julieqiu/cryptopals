@@ -4,9 +4,9 @@
 //     go run ./cmd/makedoc s1c1
 //
 
-// Solving Set 1 Challenge 1: Convert hex to base64.
+// Set 1 Challenge 1
 // 
-// Problem: Convert hex to base64.
+// Convert hex to base64
 // 
 // The first challenge is to convert hex to 64.
 // 
