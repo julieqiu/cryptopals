@@ -14,12 +14,14 @@ func Example() {
 		log.Fatal(err)
 	}
 
-    var out []byte
     for key := 0; key < 256; key ++ {
+        var out []byte
         for i := 0; i < len(b); i++ {
             out = append(out, b[i]^byte(key))
         }
         fmt.Println(out)
+        fmt.Printf("%s", out)
+        fmt.Println()
 	}
 }
 
