@@ -156,3 +156,45 @@ number to its base64 representation.
 `UQ`, so we pad the remaining characters with `=`, giving us
 
   UQ==
+
+
+Manual Solution
+
+Going back to the original challenge, our goal is to get from Hex to base64.
+Now that we know how to convert hex to binary to base64, we can even do this
+manually!
+
+  49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d
+
+to
+
+  SSdtIGtpbGxpbmcgeW91ciBicmFpbiBsaWtlIGEgcG9pc29ub3VzIG11c2hyb29t
+
+
+The Manual Solution
+
+We can use the process above to get:
+
+Hex
+
+  49276d
+
+Binary
+
+  0100 1001 0010 0111 0110 1101
+
+Base64
+
+  // Binary in sextets: | 010010 | 010010 | 011101 | 101101 |
+  // Base64             | S      | S      | d      | t      |
+
+There we go! The first 4 characters of the output string that we want!
+
+
+Code Solution
+
+Now that we know what all these things mean, we can use these Go functions from
+the standard library to help us:
+
+- https://pkg.go.dev/encoding/hex#Decode
+- https://pkg.go.dev/encoding/base64#Encoding.Encode
