@@ -21,11 +21,11 @@ The Basics
 
 Concepts you'll need to know for this challenge:
 
-- Hexidecimal
-- Binary
-- Decimal
-- Base64
-- ASCII
+Hexidecimal
+Binary
+Decimal
+Base64
+ASCII
 
 
 Decimal (Base 10)
