@@ -136,12 +136,10 @@
 // 
 // As a reminder:
 // 
-// ```
-// 81 in decimal
-// = 01010001 in binary
-// = 51 in hex
-// = Q in ASCII
-// ```
+//   81 in decimal
+//   = 01010001 in binary
+//   = 51 in hex
+//   = Q in ASCII
 // 
 // Using the binary representation of 81, we can convert it to base64 by:
 // 
@@ -161,7 +159,9 @@
 //   010100 010000 = UQ
 // 
 // 4. Lastly, base64 must ALWAYS consist of 4 characters. In our case, we have
-// `UQ`, so we pad the remaining characters with `=`, giving us `UQ==`.
+// `UQ`, so we pad the remaining characters with `=`, giving us
+// 
+//   UQ==
 //
 //
 package main

@@ -130,12 +130,10 @@ From https://en.wikipedia.org/wiki/Base64:
 
 As a reminder:
 
-```
-81 in decimal
-= 01010001 in binary
-= 51 in hex
-= Q in ASCII
-```
+  81 in decimal
+  = 01010001 in binary
+  = 51 in hex
+  = Q in ASCII
 
 Using the binary representation of 81, we can convert it to base64 by:
 
