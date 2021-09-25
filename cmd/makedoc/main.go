@@ -59,8 +59,6 @@ func setAndChallengeFromDir(dir string) (set string, challenge string, err error
 }
 
 // readfilelines reads and returns the lines from a file.
-// Whitespace on each line is trimmed.
-// Blank lines and lines beginning with '#' are ignored.
 func readFileLines(filename string) (lines []string, err error) {
 	defer derrors.Wrap(&err, "readFileLines(%q)", filename)
 	f, err := os.Open(filename)
@@ -71,10 +69,7 @@ func readFileLines(filename string) (lines []string, err error) {
 
 	s := bufio.NewScanner(f)
 	for s.Scan() {
-		line := strings.TrimSpace(s.Text())
-		if line == "" || strings.HasPrefix(line, "#") {
-			continue
-		}
+		line := s.Text()
 		lines = append(lines, line)
 	}
 	if s.Err() != nil {
@@ -91,10 +86,9 @@ func makeDoc(filename, set, challenge string, lines []string) (err error) {
 //     go run ./cmd/makedoc s%[1]sc%[2]s
 //
 
-// Set %[1]s Challenge %[2]s
 `, set, challenge)
 	for _, l := range lines {
-		content += fmt.Sprintf("// %s\n// \n", l)
+		content += fmt.Sprintf("// %s\n", l)
 	}
 	content += "//\n"
 	content += "//\n"

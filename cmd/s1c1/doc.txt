@@ -1,11 +1,8 @@
-Set 1 Challenge 1: Convert hex to base64
+Solving Set 1 Challenge 1: Convert hex to base64.
 
+Problem: Convert hex to base64.
 
-Problem
-
-The first challenge says:
-
-Convert hex to base64
+The first challenge is to convert hex to 64.
 
 The string:
 
@@ -17,6 +14,4 @@ Should produce:
 
 So go ahead and make that happen. You'll need to use this code for the rest of the exercises.
 
-Cryptopals Rule
-
-Always operate on raw bytes, never on encoded strings. Only use hex and base64 for pretty-printing.
+Cryptopals Rule: Always operate on raw bytes, never on encoded strings. Only use hex and base64 for pretty-printing.
