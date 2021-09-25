@@ -85,11 +85,12 @@ func readFileLines(filename string) (lines []string, err error) {
 
 func makeDoc(filename, set, challenge string, lines []string) (err error) {
 	defer derrors.Wrap(&err, "writeFile(%q, lines)", filename)
-	content := fmt.Sprintf(`// DO NOT EDIT. This file is generated using cmd/makedoc.
+	content := fmt.Sprintf(`// This file is generated using cmd/makedoc. DO NOT EDIT.
 // To update, edit the doc.txt file in this directory.
 // Then run
 //     go run ./cmd/makedoc s%[1]sc%[2]s
 //
+
 // Set %[1]s Challenge %[2]s
 `, set, challenge)
 	for _, l := range lines {
