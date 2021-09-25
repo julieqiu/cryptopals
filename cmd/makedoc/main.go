@@ -94,7 +94,7 @@ func makeDoc(filename, set, challenge string, lines []string) (err error) {
 // Set %[1]s Challenge %[2]s
 `, set, challenge)
 	for _, l := range lines {
-		content += fmt.Sprintf("// %s\n", l)
+		content += fmt.Sprintf("// %s\n// \n", l)
 	}
 	content += "//\n"
 	content += "//\n"
