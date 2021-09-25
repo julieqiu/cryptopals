@@ -37,11 +37,11 @@ func run(dir string) (err error) {
 	if err != nil {
 		return err
 	}
-	lines, err := readFileLines(filepath.Join(dir, "doc.txt"))
+	lines, err := readFileLines(filepath.Join(fmt.Sprintf("set%s", set), dir, "doc.txt"))
 	if err != nil {
 		return err
 	}
-	makeDoc(filepath.Join(dir, "doc.go"), set, challenge, lines)
+	makeDoc(filepath.Join(fmt.Sprintf("set%s", set), dir, "doc.go"), set, challenge, lines)
 	return nil
 }
 
