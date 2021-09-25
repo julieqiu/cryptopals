@@ -1,4 +1,4 @@
-package s1c1
+package s1c1_test
 
 import "fmt"
 
