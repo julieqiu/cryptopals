@@ -206,4 +206,4 @@
 // - https://pkg.go.dev/encoding/base64#Encoding.Encode
 //
 //
-package main
+package s1c1

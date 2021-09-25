@@ -15,8 +15,8 @@ import (
 
 func main() {
 	flag.Usage = func() {
-		fmt.Fprintf(flag.CommandLine.Output(), "usage: makedoc cmd/[dir]\n")
-		fmt.Fprintf(flag.CommandLine.Output(), "  Convert cmd/[dir]/doc.txt to cmd/[dir]/doc.go.")
+		fmt.Fprintf(flag.CommandLine.Output(), "usage: makedoc [dir]\n")
+		fmt.Fprintf(flag.CommandLine.Output(), "  Convert [dir]/doc.txt to [dir]/doc.go.")
 		flag.PrintDefaults()
 	}
 
@@ -37,11 +37,11 @@ func run(dir string) (err error) {
 	if err != nil {
 		return err
 	}
-	lines, err := readFileLines(filepath.Join("cmd", dir, "doc.txt"))
+	lines, err := readFileLines(filepath.Join(dir, "doc.txt"))
 	if err != nil {
 		return err
 	}
-	makeDoc(filepath.Join("cmd", dir, "doc.go"), set, challenge, lines)
+	makeDoc(filepath.Join(dir, "doc.go"), set, challenge, lines)
 	return nil
 }
 
@@ -92,6 +92,6 @@ func makeDoc(filename, set, challenge string, lines []string) (err error) {
 	}
 	content += "//\n"
 	content += "//\n"
-	content += "package main"
+	content += fmt.Sprintf("package s%[1]sc%[2]s", set, challenge)
 	return ioutil.WriteFile(filename, []byte(content), 0644)
 }
