@@ -26,7 +26,20 @@
 // 
 // Basics
 // 
-// There are no new concepts for this challenge.
+// 
+// Decryption: XOR has a property - if
+// 
+//   a = b ^ c
+//   // then
+//   b = a ^ c
+// 
+// As a result, the decryption process is exactly the same as the encryption.e.
+// 
+// We iterate through the encrypted message bytewise and XOR each byte with the
+// encryption key - the resultant will be the original message.
+// 
+// ETAOIN SHRDLU is the approximate order of frequency of the 12 most commonly used letters
+// in the English language. https://en.wikipedia.org/wiki/Etaoin_shrdlu
 // 
 // 
 // Solution
