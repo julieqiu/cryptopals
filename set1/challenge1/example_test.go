@@ -1,4 +1,4 @@
-package s1c1_test
+package challenge1_test
 
 import (
 	"encoding/base64"

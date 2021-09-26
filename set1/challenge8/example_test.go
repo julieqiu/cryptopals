@@ -1,4 +1,4 @@
-package c8_test
+package challenge8_test
 
 func Example() {
 }

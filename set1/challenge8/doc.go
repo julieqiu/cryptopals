@@ -21,4 +21,4 @@
 // ciphertext.
 //
 //
-package c8
+package challenge8

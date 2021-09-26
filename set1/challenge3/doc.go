@@ -47,4 +47,4 @@
 // Like in challenge 2, start by decoding the string to bytes.
 //
 //
-package c3
+package challenge3

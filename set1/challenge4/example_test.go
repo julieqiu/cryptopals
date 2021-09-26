@@ -1,4 +1,4 @@
-package c4_test
+package challenge4_test
 
 import (
 	"encoding/hex"

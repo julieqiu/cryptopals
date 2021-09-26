@@ -1,4 +1,4 @@
-package c5_test
+package challenge5_test
 
 import (
 	"encoding/hex"

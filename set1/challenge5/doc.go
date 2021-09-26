@@ -29,4 +29,4 @@
 // we aren't wasting your time with this.
 //
 //
-package c5
+package challenge5

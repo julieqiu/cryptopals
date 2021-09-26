@@ -15,7 +15,7 @@ import (
 func main() {
 	flag.Usage = func() {
 		fmt.Fprintf(flag.CommandLine.Output(), "usage: makedoc [SetID] [ChallengeID]\n")
-		fmt.Fprintf(flag.CommandLine.Output(), "  Generate set[SetID]/c[ChallengeID]/doc.go from set[SetID]/c[ChallengeID]/doc.txt.")
+		fmt.Fprintf(flag.CommandLine.Output(), "  Generate set[SetID]/challenge[ChallengeID]/doc.go from set[SetID]/challenge[ChallengeID]/doc.txt.")
 		flag.PrintDefaults()
 	}
 
@@ -33,7 +33,7 @@ func main() {
 
 func run(set, challenge string) (err error) {
 	defer derrors.Wrap(&err, "run(%q, %q)", set, challenge)
-	dir := filepath.Join(fmt.Sprintf("set%s", set), fmt.Sprintf("c%s", challenge))
+	dir := filepath.Join(fmt.Sprintf("set%s", set), fmt.Sprintf("challenge%s", challenge))
 	lines, err := readFileLines(filepath.Join(dir, "doc.txt"))
 	if err != nil {
 		return err
@@ -76,6 +76,6 @@ func makeDoc(filename, set, challenge string, lines []string) (err error) {
 	}
 	content += "//\n"
 	content += "//\n"
-	content += fmt.Sprintf("package c%s", challenge)
+	content += fmt.Sprintf("package challenge%s", challenge)
 	return ioutil.WriteFile(filename, []byte(content), 0644)
 }

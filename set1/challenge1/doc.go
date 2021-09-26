@@ -206,4 +206,4 @@
 // - https://pkg.go.dev/encoding/base64#Encoding.Encode
 //
 //
-package c1
+package challenge1

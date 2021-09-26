@@ -28,4 +28,4 @@
 //   and not just for attacking ECB.
 //
 //
-package c7
+package challenge7

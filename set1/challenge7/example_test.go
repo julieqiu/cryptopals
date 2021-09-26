@@ -1,4 +1,4 @@
-package c7_test
+package challenge7_test
 
 const input = "YELLOW SUBMARINE"
 

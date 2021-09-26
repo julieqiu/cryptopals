@@ -79,4 +79,4 @@
 // Lastly, we want to hex encode the output.
 //
 //
-package c2
+package challenge2

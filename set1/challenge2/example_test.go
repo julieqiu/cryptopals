@@ -1,8 +1,8 @@
-package c2_test
+package challenge2_test
 
 import (
 	"encoding/hex"
-    "fmt"
+	"fmt"
 	"log"
 )
 
@@ -24,9 +24,9 @@ func Example() {
 		log.Fatalf("len(b1) = %d and len(b2) = %d", len(b1), len(b2))
 	}
 
-    var out []byte
+	var out []byte
 	for i := 0; i < len(b1); i++ {
-	    out = append(out, b1[i]^b2[i])
+		out = append(out, b1[i]^b2[i])
 	}
 	// fmt.Printf("%s", out) = the kid don't play
 	fmt.Println(bytesToHex(out))
@@ -44,6 +44,6 @@ func hexToBytes(input string) ([]byte, error) {
 }
 
 // bytesToHex converts a byte slice to the equivalent in hex.
-func bytesToHex(src []byte) (string) {
+func bytesToHex(src []byte) string {
 	return hex.EncodeToString(src)
 }
