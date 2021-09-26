@@ -1,14 +1,15 @@
-package c6
+package c6_test
 
-import "testing"
+import (
+	"fmt"
 
-func TestHammingDistance(t *testing.T) {
-	want := 37
+	"github.com/julieqiu/cryptopals/set1/c6"
+)
+
+func ExampleHammingDistance() {
 	input1 := "this is a test"
 	input2 := "wokka wokka!!!"
-	got := HammingDistance(input1, input2)
-	if got != want {
-		t.Fatalf("HammingDistance(%q, %q) %d; want = %d", input1, input2, got, want)
-
-	}
+	ans := c6.HammingDistance(input1, input2)
+	fmt.Println(ans)
+	// output: 37
 }
