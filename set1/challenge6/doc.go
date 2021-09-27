@@ -225,7 +225,7 @@
 //             |          = 2.75                           |
 // 
 // 
-// BUG(XOR-example): There is a bug in the XOR example above, because the KEYSIZE
+// TODO: There is a bug in the XOR example above, because the KEYSIZE
 // is 2 so that should be the lowest after normalized.
 // 
 // 
