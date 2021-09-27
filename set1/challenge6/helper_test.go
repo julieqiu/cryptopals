@@ -1,15 +1,18 @@
-package c6_test
+package challenge6_test
 
 import (
 	"fmt"
 
-	"github.com/julieqiu/cryptopals/set1/c6"
+	"github.com/julieqiu/cryptopals/set1/challenge6"
+)
+
+const (
+	input1 = "this is a test"
+	input2 = "wokka wokka!!!"
 )
 
 func ExampleHammingDistance() {
-	input1 := "this is a test"
-	input2 := "wokka wokka!!!"
-	ans := c6.HammingDistance(input1, input2)
+	ans := challenge6.HammingDistance(input1, input2)
 	fmt.Println(ans)
 	// output: 37
 }
