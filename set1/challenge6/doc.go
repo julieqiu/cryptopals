@@ -6,7 +6,7 @@
 
 // This package provides a solution to https://cryptopals.com/sets/1/challenges/6.
 // 
-// Break repeating-key XOR
+// Break repeating key XOR
 // 
 //   It is officially on, now.
 // 
