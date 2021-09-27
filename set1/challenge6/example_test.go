@@ -3,18 +3,55 @@ package challenge6_test
 import (
 	"fmt"
 	"log"
+	"math"
 
 	"github.com/julieqiu/cryptopals/set1"
 )
 
 func Example() {
-	out, err := set1.Base64ToHex(file)
+	// 0. Convert base64 to hex.
+	h, err := set1.Base64ToHex(file)
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(string(out))
+
+	// 1. Let KEYSIZE be the guessed length of the key; try values from 2 to
+	// (say) 40.
+	fmt.Println(guessKeySize(h))
 
 	// output: TODO
+}
+
+const (
+	keysizeMin = 2
+	keysizeMax = 40
+)
+
+func guessKeySize(h []byte) []int {
+	keysizeToScore := make(map[int]int, 3)
+	maxHighest := math.MaxInt
+	for size := keysizeMin; size <= keysizeMax; size++ {
+		// Break up f into 2 keysize blocks.
+		block1 := h[0:size]
+		block2 := h[size : size*2]
+		// Get hamming distance between these blocks, normalized.
+		val := set1.HammingDistanceNormalized(block1, block2)
+		fmt.Println(val)
+		if val < maxHighest {
+			maxHighest = val
+			keysizeToScore[size] = val
+			for ks, score := range keysizeToScore {
+				if score > maxHighest {
+					delete(keysizeToScore, ks)
+				}
+			}
+		}
+	}
+	var results []int
+	for ks := range keysizeToScore {
+		results = append(results, ks)
+	}
+	return results
 }
 
 const file = `HUIfTQsPAh9PE048GmllH0kcDk4TAQsHThsBFkU2AB4BSWQgVB0dQzNTTmVS
