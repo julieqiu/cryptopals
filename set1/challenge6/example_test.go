@@ -17,7 +17,25 @@ func Example() {
 
 	// 1. Let KEYSIZE be the guessed length of the key; try values from 2 to
 	// (say) 40.
-	fmt.Println(guessKeySize(h))
+	keysizes := guessKeySize(h)
+
+	// 2. For each keysize, group the string into chunks for that group.
+	for _, ks := range keysizes {
+		chuncks := groupChunks(f, ks)
+
+		var outputChunks []string
+		for _, c := range chunks {
+			// 3. For each chunck, run single-byte XOR decrpytion.
+			out, _, err := set.DecryptHexSingleByteXOR(c)
+			if err != nil {
+				log.Fatal(err)
+			}
+			outputChunks = append(out)
+		}
+
+		// 4. Rerrange the text back.
+		out := rearrangeChunks(outputChunks, ks)
+	}
 
 	// output: TODO
 }
