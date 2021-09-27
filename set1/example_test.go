@@ -1,9 +1,9 @@
-package challenge6_test
+package set1_test
 
 import (
 	"fmt"
 
-	"github.com/julieqiu/cryptopals/set1/challenge6"
+	"github.com/julieqiu/cryptopals/set1"
 )
 
 const (
@@ -12,7 +12,7 @@ const (
 )
 
 func ExampleHammingDistance() {
-	ans := challenge6.HammingDistance(input1, input2)
+	ans := set1.HammingDistance(input1, input2)
 	fmt.Println(ans)
 	// output: 37
 }

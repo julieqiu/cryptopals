@@ -1,26 +1,20 @@
 package challenge6_test
 
 import (
-	"encoding/base64"
 	"fmt"
 	"log"
 
-	"github.com/julieqiu/derrors"
+	"github.com/julieqiu/cryptopals/set1"
 )
 
 func Example() {
-	out, err := base64ToHex(file)
+	out, err := set1.Base64ToHex(file)
 	if err != nil {
 		log.Fatal(err)
 	}
 	fmt.Println(string(out))
 
 	// output: TODO
-}
-
-func base64ToHex(src string) (_ []byte, err error) {
-	defer derrors.Wrap(&err, "base64ToHex(%q)", src)
-	return base64.StdEncoding.DecodeString(src)
 }
 
 const file = `HUIfTQsPAh9PE048GmllH0kcDk4TAQsHThsBFkU2AB4BSWQgVB0dQzNTTmVS

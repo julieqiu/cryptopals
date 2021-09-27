@@ -1,10 +1,11 @@
 package challenge4_test
 
 import (
-	"encoding/hex"
 	"fmt"
 	"log"
 	"strings"
+
+	"github.com/julieqiu/cryptopals/set1"
 )
 
 func Example() {
@@ -14,11 +15,10 @@ func Example() {
 		highestScore int
 	)
 	for _, line := range lines {
-		b, err := hexToBytes(line)
+		out, s, err := set1.DecryptHexSingleByteXOR(line)
 		if err != nil {
 			log.Fatal(err)
 		}
-		out, s := decrypt(b)
 		if s > highestScore {
 			highestScore = s
 			output = out
@@ -26,61 +26,6 @@ func Example() {
 	}
 	fmt.Println(string(output))
 	// output: Now that the party is jumping
-}
-
-func decrypt(input []byte) (output string, highestScore int) {
-	for k := 0; k < 256; k++ {
-		out, s := decryptWithKey(input, k)
-		if s > highestScore {
-			highestScore = s
-			output = string(out)
-		}
-	}
-	return output, highestScore
-}
-
-func decryptWithKey(input []byte, key int) (out []byte, score int) {
-	for i := 0; i < len(input); i++ {
-		c := input[i] ^ byte(key)
-		out = append(out, c)
-		l := strings.ToUpper(string(c))
-		v, ok := letterToValue[l]
-		if ok {
-			score += v
-		}
-	}
-	return out, score
-}
-
-// hexToBytes converts a hex string to the equivalent in bytes (decimal).
-func hexToBytes(input string) ([]byte, error) {
-	src := []byte(input)
-	dst := make([]byte, hex.DecodedLen(len(src)))
-	if _, err := hex.Decode(dst, src); err != nil {
-		return nil, err
-	}
-	return dst, nil
-}
-
-// bytesToHex converts a byte slice to the equivalent in hex.
-func bytesToHex(src []byte) string {
-	return hex.EncodeToString(src)
-}
-
-var letterToValue = map[string]int{
-	"E": 13,
-	"T": 12,
-	"A": 11,
-	"O": 10,
-	"I": 9,
-	"N": 8,
-	" ": 7,
-	"S": 6,
-	"H": 5,
-	"R": 4,
-	"D": 3,
-	"L": 2,
-	"U": 1,
 }
 
 // Contents of https://cryptopals.com/static/challenge-data/4.txt.
