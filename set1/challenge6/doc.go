@@ -6,16 +6,9 @@
 
 // This package provides a solution to https://cryptopals.com/sets/1/challenges/6.
 // 
-// Break repeating key XOR
+// Break repeating-key XOR
 // 
-//   It is officially on, now.
-// 
-//   This challenge isn't conceptually hard, but it involves actual error-prone
-//   coding. The other challenges in this set are there to bring you up to speed.
-//   This one is there to qualify you. If you can do this one, you're probably just
-//   fine up to Set 6.
-// 
-// There's a file here.
+// There's a file here:
 // https://cryptopals.com/static/challenge-data/6.txt
 // 
 // It's been base64'd after being encrypted with repeating-key XOR.
@@ -144,8 +137,10 @@
 // https://en.wikipedia.org/wiki/Hamming_distance#Algorithm_example provides an
 // algorithm for the hamming distance in Python.
 // 
-// I wrote this in Go at
+// For Go, you can use this function:
 // https://pkg.go.dev/github.com/julieqiu/cryptopals/set1/c6#HammingDistance.
+// 
+// 
 //
 //
 package challenge6
