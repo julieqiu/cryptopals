@@ -4,8 +4,7 @@
 //     go run ./cmd/makedoc 1 5
 //
 
-// Set 1 Challenge 5
-// https://cryptopals.com/sets/1/challenges/5
+// This package provides a solution to https://cryptopals.com/sets/1/challenges/5.
 // 
 // Implement repeating-key XOR
 // 

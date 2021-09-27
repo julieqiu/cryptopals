@@ -4,7 +4,7 @@
 //     go run ./cmd/makedoc 1 2
 //
 
-// Set 1 Challenge 2
+// This package provides a solution to https://cryptopals.com/sets/1/challenges/2.
 // 
 // Fixed XOR Decryption in Go
 // 

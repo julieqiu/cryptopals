@@ -4,7 +4,7 @@
 //     go run ./cmd/makedoc 1 4
 //
 
-// Set 1 Challenge 4
+// This package provides a solution to https://cryptopals.com/sets/1/challenges/4.
 // 
 // Detect single-character XOR
 // 

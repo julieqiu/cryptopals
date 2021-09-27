@@ -4,7 +4,7 @@
 //     go run ./cmd/makedoc 1 3
 //
 
-// Set 1 Challenge 3
+// This package provides a solution to https://cryptopals.com/sets/1/challenges/2.
 // 
 // Single-byte XOR cipher
 // 

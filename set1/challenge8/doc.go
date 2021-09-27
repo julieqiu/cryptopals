@@ -4,8 +4,7 @@
 //     go run ./cmd/makedoc 1 8
 //
 
-// Set 1 Challenge 8
-// https://cryptopals.com/sets/1/challenges/8
+// This package provides a solution to https://cryptopals.com/sets/1/challenges/8.
 // 
 // Detect AES in ECB mode
 // 
