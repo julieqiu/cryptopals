@@ -1,10 +1,29 @@
 package challenge6_test
 
+import (
+	"encoding/base64"
+	"fmt"
+	"log"
+
+	"github.com/julieqiu/derrors"
+)
+
 func Example() {
+	out, err := base64ToHex(file)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(string(out))
+
+	// output: TODO
 }
 
-const file = `
-HUIfTQsPAh9PE048GmllH0kcDk4TAQsHThsBFkU2AB4BSWQgVB0dQzNTTmVS
+func base64ToHex(src string) (_ []byte, err error) {
+	defer derrors.Wrap(&err, "base64ToHex(%q)", src)
+	return base64.StdEncoding.DecodeString(src)
+}
+
+const file = `HUIfTQsPAh9PE048GmllH0kcDk4TAQsHThsBFkU2AB4BSWQgVB0dQzNTTmVS
 BgBHVBwNRU0HBAxTEjwMHghJGgkRTxRMIRpHKwAFHUdZEQQJAGQmB1MANxYG
 DBoXQR0BUlQwXwAgEwoFR08SSAhFTmU+Fgk4RQYFCBpGB08fWXh+amI2DB0P
 QQ1IBlUaGwAdQnQEHgFJGgkRAlJ6f0kASDoAGhNJGk9FSA8dDVMEOgFSGQEL
