@@ -4,7 +4,9 @@
 //     go run ./cmd/makedoc 1 1
 //
 
-// Set 1 Challenge 1
+// This package provides a solution to https://cryptopals.com/sets/1/challenges/1.
+// 
+// Problem
 // 
 // Convert hex to base64
 // 
