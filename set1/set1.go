@@ -60,21 +60,25 @@ func DecryptHexMultiByteXOR(h, key string) []byte {
 	return out
 }
 
+func DecryptBytesSingleByteXOR(b []byte) (output []byte, highestScore int) {
+	for k := 0; k < 256; k++ {
+		out, s := decryptWithKey(b, k)
+		if s > highestScore {
+			highestScore = s
+			output = out
+		}
+	}
+	return output, highestScore
+}
+
 func DecryptHexSingleByteXOR(h string) (output string, highestScore int, err error) {
 	defer derrors.Wrap(&err, "DecryptHexSingleByteXOR(%q)", h)
 	b, err := HexToBytes(h)
 	if err != nil {
 		return "", 0, err
 	}
-
-	for k := 0; k < 256; k++ {
-		out, s := decryptWithKey(b, k)
-		if s > highestScore {
-			highestScore = s
-			output = string(out)
-		}
-	}
-	return output, highestScore, nil
+	out, score := DecryptBytesSingleByteXOR(b)
+	return string(out), score, nil
 }
 
 func decryptWithKey(input []byte, key int) (out []byte, score int) {
@@ -124,7 +128,7 @@ func HammingDistanceNormalized(input1, input2 []byte) int {
 	return distance * 100 / len(input1)
 }
 
-func Base64ToHex(src string) (_ []byte, err error) {
+func Base64ToBytes(src string) (_ []byte, err error) {
 	defer derrors.Wrap(&err, "base64ToHex(%q)", src)
 	return base64.StdEncoding.DecodeString(src)
 }
