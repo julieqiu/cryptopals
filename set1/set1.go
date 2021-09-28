@@ -85,13 +85,21 @@ func decryptWithKey(input []byte, key int) (out []byte, score int) {
 	for i := 0; i < len(input); i++ {
 		c := input[i] ^ byte(key)
 		out = append(out, c)
+	}
+	score = EtaoinShrdluScore(out)
+	return out, score
+}
+
+func EtaoinShrdluScore(input []byte) int {
+	var score int
+	for _, c := range input {
 		l := strings.ToUpper(string(c))
 		v, ok := LetterToValue[l]
 		if ok {
 			score += v
 		}
 	}
-	return out, score
+	return score
 }
 
 // HammingDistance reports the minimum number of substitutions required to

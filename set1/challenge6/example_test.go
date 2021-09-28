@@ -19,6 +19,11 @@ func Example() {
 	// (say) 40.
 	keysizes := guessKeySize(b)
 
+	var (
+		highest int
+		ans     []byte
+	)
+
 	// 2. For each keysize, group the string into chunks for that group.
 	for _, ks := range keysizes {
 		chunks := groupChunks(b, ks)
@@ -35,9 +40,13 @@ func Example() {
 
 		// 4. Rerrange the text back.
 		out := rearrangeChunks(outputChunks)
-		fmt.Printf("-----\n%s-----\n", string(out))
+		score := set1.EtaoinShrdluScore(out)
+		if score > highest {
+			highest = score
+			ans = out
+		}
 	}
-
+	fmt.Printf("-----\n%s-----\n", string(ans))
 	// output: TODO
 }
 
