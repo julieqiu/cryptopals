@@ -25,6 +25,12 @@
 //   You can obviously decrypt this using the OpenSSL command-line tool, but we're
 //   having you get ECB working in code for a reason. You'll need it a lot later on,
 //   and not just for attacking ECB.
+// 
+// # AES
+// 
+// https://www.cryptool.org/en/cto/aes-step-by-step.html
+// https://www.youtube.com/watch?v=lnKPoWZnNNM
+// https://formaestudio.com/rijndaelinspector/archivos/Rijndael_Animation_v4_eng-html5.html
 //
 //
 package challenge7
