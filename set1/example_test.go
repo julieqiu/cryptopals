@@ -18,8 +18,10 @@ func ExampleHammingDistance() {
 }
 
 func ExampleGuessRepeatingXORKeySize() {
-	var h []byte
-	keysizes := set1.GuessRepeatingXORKeySize(h)
+	s := "this is a test"
+	key := "hi"
+	b := set1.EncryptRepeatingXOR(s, key)
+	keysizes := set1.GuessRepeatingXORKeySize(b)
 	fmt.Println(keysizes)
 	// output: keysizes
 }

@@ -65,7 +65,7 @@ var letterToValue = map[string]int{
 	"U": 1,
 }
 
-func DecryptMultiByteXOR(h, key string) []byte {
+func EncryptRepeatingXOR(h, key string) []byte {
 	j := 0
 	out := make([]byte, len(h))
 	for i := 0; i < len(h); i++ {

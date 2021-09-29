@@ -24,7 +24,7 @@ func Example() {
 		ans     []byte
 	)
 	for _, ks := range keysizes {
-		out, score := set1.DecryptRepeatingXOR(b, ks)
+		out, score := set1.EncryptRepeatingXOR(b, ks)
 		if score > highest {
 			highest = score
 			ans = out
