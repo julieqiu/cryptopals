@@ -2,6 +2,7 @@ package set1_test
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/julieqiu/cryptopals/set1"
 )
@@ -21,7 +22,10 @@ func ExampleGuessRepeatingXORKeySize() {
 	s := "this is a test"
 	key := "hi"
 	b := set1.EncryptRepeatingXOR(s, key)
-	keysizes := set1.GuessRepeatingXORKeySize(b)
+	keysizes, err := set1.GuessRepeatingXORKeySize(b)
+	if err != nil {
+		log.Fatal(err)
+	}
 	fmt.Println(keysizes)
 	// output: keysizes
 }

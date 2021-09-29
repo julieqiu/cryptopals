@@ -66,14 +66,10 @@ var letterToValue = map[string]int{
 }
 
 func EncryptRepeatingXOR(h, key string) []byte {
-	j := 0
 	out := make([]byte, len(h))
 	for i := 0; i < len(h); i++ {
+		j := i % len(key)
 		out[i] = byte(key[j]) ^ byte(h[i])
-		j += 1
-		if j == 3 {
-			j = 0
-		}
 	}
 	return out
 }
@@ -128,7 +124,12 @@ func HammingDistance(input1, input2 string) int {
 // hammingDistance reports the minimum number of substitutions required to
 // change one string into the other, normalized by input length.
 // It is assumed that input1 and input2 are the same length.
-func hammingDistanceNormalized(input1, input2 []byte) int {
+func hammingDistanceNormalized(input1, input2 []byte) (_ int, err error) {
+	defer derrors.Wrap(&err, "hammingDistanceNormalized(%v, %v)", input1, input2)
+	if len(input1) != len(input2) {
+		return 0, fmt.Errorf("mismatch: len(input1) = %d; len(input2) = %d", len(input1), len(input2))
+	}
+
 	var distance int
 	for i := 0; i < len(input1); i++ {
 		c1 := fmt.Sprintf("%08b", input1[i])
@@ -139,18 +140,27 @@ func hammingDistanceNormalized(input1, input2 []byte) int {
 			}
 		}
 	}
-	return distance * 100 / len(input1)
+	return distance * 100 / len(input1), nil
 }
 
-func GuessRepeatingXORKeySize(h []byte) []int {
+func GuessRepeatingXORKeySize(h []byte) (_ []int, err error) {
+	defer derrors.Wrap(&err, "GuessRepeatingXORKeySize(%v)", h)
 	keysizeToScore := make(map[int]int, 3)
 	maxHighest := math.MaxInt
 	for size := keysizeMin; size <= keysizeMax; size++ {
 		// Break up f into 2 keysize blocks.
 		block1 := h[0:size] // fix panic here
-		block2 := h[size : size*2]
+		var block2 []byte
+		if len(h) < size*2 {
+			block2 = h[size:]
+		} else {
+			block2 = h[size : size*2]
+		}
 		// Get hamming distance between these blocks, normalized.
-		val := hammingDistanceNormalized(block1, block2)
+		val, err := hammingDistanceNormalized(block1, block2)
+		if err != nil {
+			return nil, err
+		}
 		if val < maxHighest {
 			maxHighest = val
 			keysizeToScore[size] = val
@@ -167,7 +177,7 @@ func GuessRepeatingXORKeySize(h []byte) []int {
 	for ks := range keysizeToScore {
 		results = append(results, ks)
 	}
-	return results
+	return results, nil
 }
 
 const (
