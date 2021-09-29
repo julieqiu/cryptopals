@@ -3,7 +3,6 @@ package challenge6_test
 import (
 	"fmt"
 	"log"
-	"math"
 
 	"github.com/julieqiu/cryptopals/set1"
 )
@@ -17,30 +16,15 @@ func Example() {
 
 	// 1. Let KEYSIZE be the guessed length of the key; try values from 2 to
 	// (say) 40.
-	keysizes := guessKeySize(b)
+	keysizes := set1.GuessRepeatingXORKeySize(b)
 
+	// 2. For each keysize, group the string into chunks for that group.
 	var (
 		highest int
 		ans     []byte
 	)
-
-	// 2. For each keysize, group the string into chunks for that group.
 	for _, ks := range keysizes {
-		chunks := groupChunks(b, ks)
-
-		var outputChunks [][]byte
-		for _, c := range chunks {
-			// 3. For each chunck, run single-byte XOR decrpytion.
-			out, _ := set1.DecryptBytesSingleByteXOR(c)
-			if err != nil {
-				log.Fatal(err)
-			}
-			outputChunks = append(outputChunks, out)
-		}
-
-		// 4. Rerrange the text back.
-		out := rearrangeChunks(outputChunks)
-		score := set1.EtaoinShrdluScore(out)
+		out, score := set1.DecryptRepeatingXOR(b, ks)
 		if score > highest {
 			highest = score
 			ans = out
@@ -48,70 +32,6 @@ func Example() {
 	}
 	fmt.Printf("-----\n%s-----\n", string(ans))
 	// output: TODO
-}
-
-const (
-	keysizeMin = 2
-	keysizeMax = 40
-	maxGuesses = 3
-)
-
-func guessKeySize(h []byte) []int {
-	keysizeToScore := make(map[int]int, 3)
-	maxHighest := math.MaxInt
-	for size := keysizeMin; size <= keysizeMax; size++ {
-		// Break up f into 2 keysize blocks.
-		block1 := h[0:size]
-		block2 := h[size : size*2]
-		// Get hamming distance between these blocks, normalized.
-		val := set1.HammingDistanceNormalized(block1, block2)
-		if val < maxHighest {
-			maxHighest = val
-			keysizeToScore[size] = val
-			if len(keysizeToScore) > maxGuesses {
-				for ks, score := range keysizeToScore {
-					if score > maxHighest {
-						delete(keysizeToScore, ks)
-					}
-				}
-			}
-		}
-	}
-	var results []int
-	for ks := range keysizeToScore {
-		results = append(results, ks)
-	}
-	return results
-}
-
-func groupChunks(b []byte, ks int) [][]byte {
-	chunks := make([][]byte, ks)
-	for i, c := range b {
-		j := i % ks
-		chunks[j] = append(chunks[j], c)
-	}
-	return chunks
-}
-
-func rearrangeChunks(chunks [][]byte) []byte {
-	var r []byte
-
-	longestChunkLength := len(chunks[0])
-	// Look through each i-th position of the chunk (look at the first
-	// character of each, then the second, then the third...)
-	//
-	// For each chunk, if i > length of the chunk, we've run out of letters in
-	// that chunk, so continue to the next.
-	// Otherwise, append to the result.
-	for i := 0; i < longestChunkLength; i++ {
-		for _, chunk := range chunks {
-			if i >= len(chunk) {
-				continue
-			}
-			r = append(r, chunk[i])
-		}
-	}
-	return r
 }
 
 const file = `HUIfTQsPAh9PE048GmllH0kcDk4TAQsHThsBFkU2AB4BSWQgVB0dQzNTTmVS
