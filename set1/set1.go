@@ -32,7 +32,24 @@ func BytesToHex(src []byte) string {
 	return hex.EncodeToString(src)
 }
 
-var LetterToValue = map[string]int{
+func Base64ToBytes(src string) (_ []byte, err error) {
+	defer derrors.Wrap(&err, "base64ToHex(%q)", src)
+	return base64.StdEncoding.DecodeString(src)
+}
+
+func etaoinShrdluScore(input []byte) int {
+	var score int
+	for _, c := range input {
+		l := strings.ToUpper(string(c))
+		v, ok := letterToValue[l]
+		if ok {
+			score += v
+		}
+	}
+	return score
+}
+
+var letterToValue = map[string]int{
 	"E": 13,
 	"T": 12,
 	"A": 11,
@@ -61,7 +78,17 @@ func DecryptHexMultiByteXOR(h, key string) []byte {
 	return out
 }
 
-func DecryptBytesSingleByteXOR(b []byte) (output []byte, highestScore int) {
+func DecryptHexSingleByteXOR(h string) (output string, highestScore int, err error) {
+	defer derrors.Wrap(&err, "DecryptHexSingleByteXOR(%q)", h)
+	b, err := HexToBytes(h)
+	if err != nil {
+		return "", 0, err
+	}
+	out, score := decryptBytesSingleByteXOR(b)
+	return string(out), score, nil
+}
+
+func decryptBytesSingleByteXOR(b []byte) (output []byte, highestScore int) {
 	for k := 0; k < 256; k++ {
 		out, s := decryptWithKey(b, k)
 		if s > highestScore {
@@ -72,35 +99,13 @@ func DecryptBytesSingleByteXOR(b []byte) (output []byte, highestScore int) {
 	return output, highestScore
 }
 
-func DecryptHexSingleByteXOR(h string) (output string, highestScore int, err error) {
-	defer derrors.Wrap(&err, "DecryptHexSingleByteXOR(%q)", h)
-	b, err := HexToBytes(h)
-	if err != nil {
-		return "", 0, err
-	}
-	out, score := DecryptBytesSingleByteXOR(b)
-	return string(out), score, nil
-}
-
 func decryptWithKey(input []byte, key int) (out []byte, score int) {
 	for i := 0; i < len(input); i++ {
 		c := input[i] ^ byte(key)
 		out = append(out, c)
 	}
-	score = EtaoinShrdluScore(out)
+	score = etaoinShrdluScore(out)
 	return out, score
-}
-
-func EtaoinShrdluScore(input []byte) int {
-	var score int
-	for _, c := range input {
-		l := strings.ToUpper(string(c))
-		v, ok := LetterToValue[l]
-		if ok {
-			score += v
-		}
-	}
-	return score
 }
 
 // HammingDistance reports the minimum number of substitutions required to
@@ -120,10 +125,10 @@ func HammingDistance(input1, input2 string) int {
 	return distance
 }
 
-// HammingDistance reports the minimum number of substitutions required to
+// hammingDistance reports the minimum number of substitutions required to
 // change one string into the other, normalized by input length.
 // It is assumed that input1 and input2 are the same length.
-func HammingDistanceNormalized(input1, input2 []byte) int {
+func hammingDistanceNormalized(input1, input2 []byte) int {
 	var distance int
 	for i := 0; i < len(input1); i++ {
 		c1 := fmt.Sprintf("%08b", input1[i])
@@ -137,11 +142,6 @@ func HammingDistanceNormalized(input1, input2 []byte) int {
 	return distance * 100 / len(input1)
 }
 
-func Base64ToBytes(src string) (_ []byte, err error) {
-	defer derrors.Wrap(&err, "base64ToHex(%q)", src)
-	return base64.StdEncoding.DecodeString(src)
-}
-
 func GuessRepeatingXORKeySize(h []byte) []int {
 	keysizeToScore := make(map[int]int, 3)
 	maxHighest := math.MaxInt
@@ -150,7 +150,7 @@ func GuessRepeatingXORKeySize(h []byte) []int {
 		block1 := h[0:size] // fix panic here
 		block2 := h[size : size*2]
 		// Get hamming distance between these blocks, normalized.
-		val := HammingDistanceNormalized(block1, block2)
+		val := hammingDistanceNormalized(block1, block2)
 		if val < maxHighest {
 			maxHighest = val
 			keysizeToScore[size] = val
@@ -182,13 +182,13 @@ func DecryptRepeatingXOR(b []byte, ks int) ([]byte, int) {
 	var outputChunks [][]byte
 	for _, c := range chunks {
 		// 3. For each chunck, run single-byte XOR decrpytion.
-		out, _ := DecryptBytesSingleByteXOR(c)
+		out, _ := decryptBytesSingleByteXOR(c)
 		outputChunks = append(outputChunks, out)
 	}
 
 	// 4. Rerrange the text back.
 	out := rearrangeChunks(outputChunks)
-	score := EtaoinShrdluScore(out)
+	score := etaoinShrdluScore(out)
 	return out, score
 }
 
