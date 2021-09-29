@@ -15,7 +15,7 @@ func Example() {
 		highestScore int
 	)
 	for _, line := range lines {
-		out, s, err := set1.DecryptHexSingleByteXOR(line)
+		out, s, err := set1.DecryptSingleByteXOR(line)
 		if err != nil {
 			log.Fatal(err)
 		}

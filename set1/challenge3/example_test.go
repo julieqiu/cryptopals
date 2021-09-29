@@ -10,7 +10,7 @@ import (
 const input = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736"
 
 func Example() {
-	out, _, err := set1.DecryptHexSingleByteXOR(input)
+	out, _, err := set1.DecryptSingleByteXOR(input)
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -37,7 +37,7 @@ func Base64ToBytes(src string) (_ []byte, err error) {
 	return base64.StdEncoding.DecodeString(src)
 }
 
-func etaoinShrdluScore(input []byte) int {
+func EtaoinShrdluScore(input []byte) int {
 	var score int
 	for _, c := range input {
 		l := strings.ToUpper(string(c))
@@ -65,7 +65,7 @@ var letterToValue = map[string]int{
 	"U": 1,
 }
 
-func DecryptHexMultiByteXOR(h, key string) []byte {
+func DecryptMultiByteXOR(h, key string) []byte {
 	j := 0
 	out := make([]byte, len(h))
 	for i := 0; i < len(h); i++ {
@@ -78,7 +78,7 @@ func DecryptHexMultiByteXOR(h, key string) []byte {
 	return out
 }
 
-func DecryptHexSingleByteXOR(h string) (output string, highestScore int, err error) {
+func DecryptSingleByteXOR(h string) (output string, highestScore int, err error) {
 	defer derrors.Wrap(&err, "DecryptHexSingleByteXOR(%q)", h)
 	b, err := HexToBytes(h)
 	if err != nil {
@@ -104,7 +104,7 @@ func decryptWithKey(input []byte, key int) (out []byte, score int) {
 		c := input[i] ^ byte(key)
 		out = append(out, c)
 	}
-	score = etaoinShrdluScore(out)
+	score = EtaoinShrdluScore(out)
 	return out, score
 }
 
@@ -188,7 +188,7 @@ func DecryptRepeatingXOR(b []byte, ks int) ([]byte, int) {
 
 	// 4. Rerrange the text back.
 	out := rearrangeChunks(outputChunks)
-	score := etaoinShrdluScore(out)
+	score := EtaoinShrdluScore(out)
 	return out, score
 }
 

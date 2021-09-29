@@ -14,7 +14,7 @@ I go crazy when I hear a cymbal`
 )
 
 func Example() {
-	b := set1.DecryptHexMultiByteXOR(input, key)
+	b := set1.DecryptMultiByteXOR(input, key)
 	out := set1.BytesToHex(b)
 	fmt.Println(out)
 	// output:
