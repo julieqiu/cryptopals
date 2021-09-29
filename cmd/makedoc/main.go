@@ -99,7 +99,7 @@ func makeSet(dir, set, challenge string) (err error) {
 	defer derrors.Wrap(&err, "makeSet(%q, %q, %q)", dir, set, challenge)
 
 	if err := os.MkdirAll(dir, os.ModePerm); err != nil {
-		return fmt.Errorf("os.MkdirAll(%q, %d): %v", dir, os.ModePerm)
+		return fmt.Errorf("os.MkdirAll(%q, %d): %v", dir, os.ModePerm, err)
 	}
 
 	if err := makeTemplateDoc(dir, set, challenge); err != nil {
