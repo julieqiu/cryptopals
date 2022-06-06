@@ -16,22 +16,23 @@ func Example() {
 
 	// 1. Let KEYSIZE be the guessed length of the key; try values from 2 to
 	// (say) 40.
-	keysizes := set1.GuessRepeatingXORKeySize(b)
+	keysizes, err := set1.GuessRepeatingXORKeySize(b)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	// 2. For each keysize, group the string into chunks for that group.
 	var (
-		highest int
 		ans     []byte
+		highest int
 	)
 	for _, ks := range keysizes {
-		out, score := set1.EncryptRepeatingXOR(b, ks)
+		out, score := set1.DecryptRepeatingXOR(b, ks)
 		if score > highest {
-			highest = score
 			ans = out
 		}
 	}
-	fmt.Printf("-----\n%s-----\n", string(ans))
-	// output: TODO
+	fmt.Println(string(ans))
 }
 
 const file = `HUIfTQsPAh9PE048GmllH0kcDk4TAQsHThsBFkU2AB4BSWQgVB0dQzNTTmVS
